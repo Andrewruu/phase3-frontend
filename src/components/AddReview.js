@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 
 
-export default function AddReview({handleAddReview, bookID}) {
+export default function AddReview({handleAddReview, bookID, reviews}) {
 
-    console.log(bookID)
     const [reviewObj, setReviewObj]= useState({
         name: "",
         comment: "",
@@ -27,7 +26,7 @@ export default function AddReview({handleAddReview, bookID}) {
             score: reviewObj.score,
             book_id: reviewObj.book_id
         }
-        console.log(newReview)
+  
         fetch("http://localhost:9292/reviews", {
             method: "POST",
             headers: {
@@ -36,7 +35,7 @@ export default function AddReview({handleAddReview, bookID}) {
             body: JSON.stringify(newReview),
           })
             .then((r) => r.json())
-            .then(data => {handleAddReview(data)})
+            .then(data => {handleAddReview(reviews, data)})
     }
 
 

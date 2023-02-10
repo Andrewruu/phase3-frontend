@@ -1,9 +1,9 @@
 import ReviewCard from "./ReviewCard"
-export default function Review({bookreview, handelRemoverReview}){
+export default function Review({bookreview, handelRemoverReview, handleEditReview}){
     const reviewList = (
         <div id="review-collection">{
             bookreview.map((review)=>{
-             return <ReviewCard key={review.id} review={review} handelRemoverReview={handelRemoverReview}/>
+            return <ReviewCard key={review.id} review={review} handelRemoverReview={handelRemoverReview} handleEditReview={handleEditReview}/>
             })
           }</div>
       )

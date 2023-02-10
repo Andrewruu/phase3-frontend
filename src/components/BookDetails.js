@@ -1,17 +1,18 @@
 import { useHistory, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import AddReview from "./AddReview";
 import Review from "./Review";
 
-export default function BookDetails({handleAddReview, handelRemoveBook, books, reviews, handelRemoverReview}){
+export default function BookDetails({handelRemoveBook, books, handelRemoverReview, handleAddReview, handleEditReview}){
     const params = useParams()
-    const bookreview = reviews.filter(review => review.book_id == params.id)
     const book = books.find((book)=>book.id == params.id)
     const history = useHistory()
 
     if(book===null){
         return <h1> Loading...</h1>
     }
+    console.log(books)
+    
+
     
     function handleRemove(){
         fetch(`http://localhost:9292/books/${book.id}`,{
@@ -45,8 +46,8 @@ export default function BookDetails({handleAddReview, handelRemoveBook, books, r
                 <h3>Summary</h3>
                 <p> {book.summary} </p>
             </div>
-            <AddReview handleAddReview={handleAddReview} bookID={params.id}/>
-            <Review bookreview={bookreview} handelRemoverReview={handelRemoverReview}/>
+            <AddReview handleAddReview={handleAddReview} bookID={params.id} reviews={book.reviews}/>
+            <Review bookreview={book.reviews} handelRemoverReview={handelRemoverReview} handleEditReview={handleEditReview}/>
         </div>
     )
 }

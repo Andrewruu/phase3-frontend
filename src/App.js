@@ -9,15 +9,11 @@ import AddBook from "./components/AddBook"
 
 export default function App(){
     const [books, setBooks] = useState([])
-    const [reviews, setReviews] = useState([])
 
     useEffect(() => {
         fetch("http://localhost:9292/books")
           .then(res => res.json())
           .then(setBooks);
-        fetch("http://localhost:9292/reviews")
-          .then(res => res.json())
-          .then(setReviews);
       }, [])
 
     function updateBook(bookObj){
@@ -26,16 +22,47 @@ export default function App(){
     function handleAddBook(newBook) {
         setBooks([...books, newBook]);
     }
-    function handleAddReview(newReview) {
-        setReviews([...reviews, newReview]);
-    }
+
     function handelRemoveBook(removeBook){
         setBooks(books.filter(book => book.id !== removeBook.id))
     }
+
+    function handleAddReview(reviews, newReview) {
+        const newReviews = ([...reviews, newReview])
+        setBooks(books.map(book => {
+            if(book.id === newReview.book_id){ 
+                book.reviews = newReviews
+                return book}
+            else
+                return book
+            
+            }))
+        
+    }
     function handelRemoverReview(removeReview){
-        setReviews(reviews.filter(review => review.id !== removeReview.id))
+       setBooks(books.map(book=>
+        {
+            if(book.id === removeReview.book_id)
+            {
+                book.reviews = book.reviews.filter(review => review.id !== removeReview.id)
+                return book
+            }
+            else 
+                return book
+        }))
     }
 
+    function handleEditReview(editReview){
+        setBooks(books.map(book => {
+            if(book.id === editReview.book_id){ 
+                book.reviews = book.reviews.map(review => review.id !== editReview.id ? review: editReview)
+
+                return book}
+            else
+                return book
+            
+            }))
+    }
 
 
     return (
@@ -49,7 +76,7 @@ export default function App(){
                     <AddBook handleAddBook={handleAddBook}/>
                 </Route>
                 <Route path="/Books/:id">
-                    <BookDetails handelRemoveBook={handelRemoveBook} books={books} reviews={reviews} handleAddReview={handleAddReview} handelRemoverReview={handelRemoverReview}/>
+                    <BookDetails handelRemoveBook={handelRemoveBook} books={books} handleAddReview={handleAddReview} handelRemoverReview={handelRemoverReview} handleEditReview={handleEditReview}/>
                 </Route>
                 <Route exact path="/">
                     <Home/>
