@@ -40,24 +40,33 @@ export default function App(){
         
     }
     function handelRemoverReview(removeReview){
-       setBooks(books.map(book=>
+        const bookToUpdate = books.find(book => book.id === removeReview.book_id)
+        const bookUpdated = books.map(book=>
         {
-            if(book.id === removeReview.book_id)
+            if(book === bookToUpdate)
             {
-                book.reviews = book.reviews.filter(review => review.id !== removeReview.id)
-                return book
+                return{
+                    ...bookToUpdate,
+                    reviews: book.reviews.filter(review => review.id !== removeReview.id)
+                }
             }
             else 
                 return book
-        }))
+        })
+        setBooks(bookUpdated)
+        
     }
 
     function handleEditReview(editReview){
+        const bookToUpdate = books.find(book => book.id === editReview.book_id)
         setBooks(books.map(book => {
             if(book.id === editReview.book_id){ 
-                book.reviews = book.reviews.map(review => review.id !== editReview.id ? review: editReview)
 
-                return book}
+                return{
+                    ...bookToUpdate,
+                    reviews: book.reviews.map(review => review.id !== editReview.id ? review: editReview)
+                }
+            }
             else
                 return book
             

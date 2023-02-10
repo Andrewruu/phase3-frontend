@@ -10,7 +10,7 @@ export default function BookDetails({handelRemoveBook, books, handelRemoverRevie
     if(book===null){
         return <h1> Loading...</h1>
     }
-    console.log(books)
+
     
 
     

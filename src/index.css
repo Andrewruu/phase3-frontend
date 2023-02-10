@@ -104,18 +104,21 @@ nav a.active {
   margin: 0;
   font-size: 16px;
   font-weight: bold;
+  text-align: center;
 }
 .reviewcard h5{
   text-align: right;
 }
 .reviewcard button{
-  align-self: right;
+  margin: 3px;
+  height: 2rem;
 }
 .reviewcard  {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
   background-color: lightgray;
+  text-align: right;
 }
 
 .review-collection {
