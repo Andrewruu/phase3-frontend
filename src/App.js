@@ -36,9 +36,7 @@ export default function App(){
         setReviews(reviews.filter(review => review.id !== removeReview.id))
     }
 
-    function test(){
-        console.log('test')
-    }
+
 
     return (
         <div className="app">
@@ -50,7 +48,7 @@ export default function App(){
                 <Route exact path="/NewBook">
                     <AddBook handleAddBook={handleAddBook}/>
                 </Route>
-                <Route path="/Books/:id" onclick={test}>
+                <Route path="/Books/:id">
                     <BookDetails handelRemoveBook={handelRemoveBook} books={books} reviews={reviews} handleAddReview={handleAddReview} handelRemoverReview={handelRemoverReview}/>
                 </Route>
                 <Route exact path="/">
