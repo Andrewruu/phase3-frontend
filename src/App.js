@@ -18,6 +18,8 @@ export default function App(){
 
     function handleAddBook(newBook) {
         setBooks([...books, newBook]);
+        console.log(newBook)
+        console.log(books)
     }
 
     function handelRemoveBook(removeBook){
