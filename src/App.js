@@ -16,9 +16,6 @@ export default function App(){
           .then(setBooks);
       }, [])
 
-    function updateBook(bookObj){
-        setBooks(books.map(book=>(book.id === bookObj.id ? bookObj: book)))
-    }
     function handleAddBook(newBook) {
         setBooks([...books, newBook]);
     }
@@ -28,11 +25,15 @@ export default function App(){
     }
 
     function handleAddReview(reviews, newReview) {
-        const newReviews = ([...reviews, newReview])
+        const bookToUpdate = books.find(book => book.id === newReview.book_id)
+        const newReviews = [...reviews, newReview]
         setBooks(books.map(book => {
-            if(book.id === newReview.book_id){ 
-                book.reviews = newReviews
-                return book}
+            if(book === bookToUpdate){ 
+                return{
+                    ...bookToUpdate,
+                    reviews: newReviews
+                }
+}
             else
                 return book
             
@@ -60,7 +61,7 @@ export default function App(){
     function handleEditReview(editReview){
         const bookToUpdate = books.find(book => book.id === editReview.book_id)
         setBooks(books.map(book => {
-            if(book.id === editReview.book_id){ 
+            if(book === bookToUpdate){ 
 
                 return{
                     ...bookToUpdate,

@@ -11,6 +11,15 @@ export default function AddReview({handleAddReview, bookID, reviews}) {
 
     })
 
+    function clearForm(){
+        const clearReviewObj = {
+            name: "",
+            comment: "",
+            score: "",
+            book_id: bookID
+        }
+        setReviewObj(clearReviewObj)
+    }
     function handleChange(e) {
         setReviewObj({
           ...reviewObj,
@@ -35,7 +44,10 @@ export default function AddReview({handleAddReview, bookID, reviews}) {
             body: JSON.stringify(newReview),
           })
             .then((r) => r.json())
-            .then(data => {handleAddReview(reviews, data)})
+            .then(data => {
+                handleAddReview(reviews, data)
+                clearForm()
+            })
     }
 
 
